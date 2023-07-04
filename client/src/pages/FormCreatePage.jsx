@@ -51,8 +51,8 @@ export default function FormCreatePage() {
     return (
         <div className="w-2/3 mx-auto">
             <h1 className="p-4 text-2xl font-bold text-center">Create a form here.</h1>
-            <div className="flex items-center justify-center">
-                <label className="font-bold">Name:</label>
+            <div className="flex items-center justify-center mb-4">
+                <label className="font-bold mr-2">Name:</label>
                 <input
                     type="text"
                     value={formName}
@@ -64,7 +64,7 @@ export default function FormCreatePage() {
                 {formElements.map((formElement, index) => {
                     const elementCopy = JSON.parse(JSON.stringify(formElement));
                     return (
-                        <div key={index} className="flex items-center">
+                        <div key={index} className="flex items-center gap-4 mb-4">
                             <button
                                 onClick={(e) => removeField(index, e)}
                                 className="p-2 bg-red-500 text-white rounded-2xl hover:bg-red-600"
@@ -74,19 +74,19 @@ export default function FormCreatePage() {
                                 </svg>
 
                             </button>
-                            <label className="font-bold">Label:</label>
+                            <label className="font-bold mr-2">Label:</label>
                             <input
                                 type="text"
                                 value={elementCopy.label}
                                 onChange={(e) => handleLabelChange(e, index)}
-                                className="flex-grow py-2 px-4 mb-2 border border-gray-300 rounded-md shadow-sm"
+                                className="flex-grow py-2 px-4 border border-gray-300 rounded-md shadow-sm"
                             />
 
                             <label className="mr-2">Type:</label>
                             <select
                                 value={elementCopy.type}
                                 onChange={(e) => handleTypeChange(e, index)}
-                                className="flex-grow py-2 px-4 mb-2 mr-2 border border-gray-300 rounded-md shadow-sm"
+                                className="flex-grow py-2 px-4 border border-gray-300 rounded-md shadow-sm"
                             >
                                 <option value="">Select type</option>
                                 <option value="text">Text</option>
@@ -95,7 +95,7 @@ export default function FormCreatePage() {
                             </select>
 
                             {elementCopy.type === 'select' && (
-                                <div className="flex flex-col items-center justify-center">
+                                <div className="flex flex-col items-center justify-center gap-2">
                                     <label className="">Options:</label>
                                     {elementCopy.options.map((option, optionIndex) => (
                                         <div key={optionIndex} className="flex mb-2">
@@ -103,11 +103,11 @@ export default function FormCreatePage() {
                                                 type="text"
                                                 value={option}
                                                 onChange={(e) => handleOptionChange(e, index, optionIndex)}
-                                                className="py-2 px-4 mr-2 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                                                className="py-2 px-4 mr-2 border border-gray-300 rounded-md shadow-sm"
                                             />
                                             <button
                                                 onClick={(e) => removeOption(index, optionIndex, e)}
-                                                className="py-2 px-4 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
+                                                className="p-2 bg-red-500 text-white rounded-2xl hover:bg-red-600"
                                             >
                                                 <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
                                                     <path strokeLinecap="round" strokeLinejoin="round" d="M19.5 12h-15" />
@@ -131,19 +131,23 @@ export default function FormCreatePage() {
                     );
                 })}
             </form>
-            <div className="flex flex-col items-center justify-center">
-                <button
-                    onClick={addField}
-                    className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                >
-                    Add Field
-                </button>
-                <button
-                    onClick={addForm}
-                    className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
-                >
-                    Save Form
-                </button>
+            <div className="flex flex-col w-full gap-4 p-3">
+                <div className='w-full'>
+                    <button
+                        onClick={addField}
+                        className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    >
+                        Add Field
+                    </button>
+                </div>
+                <div className='flex justify-end'>
+                    <button
+                        onClick={addForm}
+                        className="py-2 px-4 bg-blue-500 text-white rounded-md hover:bg-blue-600"
+                    >
+                        Save Form
+                    </button>
+                </div>
             </div>
         </div>
     );

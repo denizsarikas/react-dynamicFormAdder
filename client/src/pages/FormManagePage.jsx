@@ -85,7 +85,7 @@ export default function FormManagePage() {
       {formList.map((form, index) => (
         <div key={index} className="border p-4 mb-4">
           {editIndex === index ? (
-            <div className='mb-2 bg-yellow-100 flex flex-col items-center justify-center'>
+            <div className='mb-2 flex flex-col items-center justify-center'>
               <div>
                 <label >Form Name:</label>
                 <input
@@ -121,7 +121,7 @@ export default function FormManagePage() {
                   </select>
                   {formElement.type === 'select' && (
                     <div className=''>
-                      <label className="mr-2">Options:</label>
+                      <label className="ml-4">Options:</label>
                       {formElement.options.map((option, optionIndex) => (
                         <div key={optionIndex} className="flex mb-2">
                           <input
@@ -164,8 +164,8 @@ export default function FormManagePage() {
               </div>
             </div>
           ) : (
-            <div className='flex w-full bg-blue-300 justify-center items-center'>
-              <div className='flex flex-col bg-yellow-200 w-1/2 justify-center items-center'>
+            <div className='flex w-full justify-center items-center'>
+              <div className='flex flex-col w-1/2 justify-center items-center'>
                 <p className="mb-2 text-lg font-semibold">Form Name: {form.formName}</p>
                 {form.formElements.map((formElement, subIndex) => (
                   <div className="flex mb-4" key={subIndex}>
@@ -174,10 +174,10 @@ export default function FormManagePage() {
                     <p className="mr-2 text-gray-700">Type:</p>
                     <p className="">{formElement.type}</p>
                     {formElement.type === 'select' && (
-                      <div>
-                        <p className="mb-1">Options:</p>
+                      <div className='flex flex-col'>
+                        <p className="ml-4">Options:</p>
                         {formElement.options.map((option, optionIndex) => (
-                          <div key={optionIndex} className="ml-4">
+                          <div key={optionIndex} className="ml-4 flex items-center justify-center">
                             <p className="mb-1">{option}</p>
                           </div>
                         ))}
@@ -191,19 +191,29 @@ export default function FormManagePage() {
                   onClick={() => handleEdit(index, form)}
                   className="py-2 px-4 mb-2 bg-yellow-500 text-white rounded-md hover:bg-yellow-600 focus:outline-none focus:ring-2 focus:ring-yellow-500 focus:ring-offset-2"
                 >
-                  Edit
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M21.75 6.75a4.5 4.5 0 01-4.884 4.484c-1.076-.091-2.264.071-2.95.904l-7.152 8.684a2.548 2.548 0 11-3.586-3.586l8.684-7.152c.833-.686.995-1.874.904-2.95a4.5 4.5 0 016.336-4.486l-3.276 3.276a3.004 3.004 0 002.25 2.25l3.276-3.276c.256.565.398 1.192.398 1.852z" />
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M4.867 19.125h.008v.008h-.008v-.008z" />
+                  </svg>
+
                 </button>
                 <button
                   onClick={() => deleteForm(index)}
                   className="py-2 px-4 mb-2 bg-red-500 text-white rounded-md hover:bg-red-600 focus:outline-none focus:ring-2 focus:ring-red-500 focus:ring-offset-2"
                 >
-                  Delete
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0" />
+                  </svg>
+
                 </button>
                 <Link
                   to={`/formfill/${form.formName}`}
                   className="py-2 px-4 bg-green-500 text-white rounded-md hover:bg-green-600 focus:outline-none focus:ring-2 focus:ring-green-500 focus:ring-offset-2"
                 >
-                  Fill
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="w-6 h-6">
+                    <path strokeLinecap="round" strokeLinejoin="round" d="M6 12L3.269 3.126A59.768 59.768 0 0121.485 12 59.77 59.77 0 013.27 20.876L5.999 12zm0 0h7.5" />
+                  </svg>
+
                 </Link>
               </div>
             </div>
