@@ -8,7 +8,7 @@ export const FormProvider = ({ children }) => {
 
     const [formElements, setFormElements] = useState(
         [
-            { name: '', label: '', type: '', options: [] },
+            { label: '', type: '', options: [] },
         ]
     );
 
@@ -18,23 +18,23 @@ export const FormProvider = ({ children }) => {
 
     const addField = () => {
         const newFormElements = [...formElements];
-        newFormElements.push({ name: '', label: '', type: '', options: []  });
+        newFormElements.push({ label: '', type: '', options: [] });
         setFormElements(newFormElements);
     };
 
     const removeField = (index, event) => {
-        event.preventDefault(); // Sayfanın yenilenmesini engeller
+        event.preventDefault();
         const newFormElements = formElements.filter((_, i) => i !== index);
         setFormElements(newFormElements);
-      };
+    };
 
     const addForm = () => {
         const newForm = {
-          formName: formName,
-          formElements: formElements
+            'formName': formName,
+            'formElements': formElements
         };
         setFormList(prevFormList => [...prevFormList, newForm]);
-      };
+    };
 
     useEffect(() => {
         console.log(formList);

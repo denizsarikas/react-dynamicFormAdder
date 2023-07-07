@@ -22,9 +22,6 @@ export default function FormCreatePage() {
         const newFormElements = [...formElements];
         const selectedType = e.target.value;
         newFormElements[index] = { ...newFormElements[index], type: selectedType };
-        if (selectedType !== 'select') {
-            newFormElements[index].options = [];
-        }
         setFormElements(newFormElements);
     };
 

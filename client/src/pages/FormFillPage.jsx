@@ -1,22 +1,29 @@
 import { useParams } from 'react-router-dom';
 import { useFormContext } from '../context/FormContext';
+import { useState } from 'react';
 
 export default function FormFillPage() {
   const { id } = useParams();
   const { formList } = useFormContext();
 
+  const [inputValues, setInputValues] = useState({});
+
   // Seçilen formu al
   const selectedForm = formList.find(form => form.formName === id);
 
-  const handleInputChange = (e, index) => {
-    const { value } = e.target;
-    selectedForm.formElements[index].value = value;
-  };
+  function handleInputChange(e, index) {
+    const { name, value } = e.target;
+
+    setInputValues(prevState => {
+      const updatedValues = { ...prevState[index], [name]: value };
+      return { ...prevState, [index]: updatedValues };
+    });
+  }
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    // Form verilerini gönderme işlemleri burada gerçekleştirilebilir
     console.log(selectedForm);
+    console.log(inputValues);
   };
 
   return (
@@ -28,9 +35,13 @@ export default function FormFillPage() {
             <div className="mb-4" key={index}>
               <label className="block font-bold mb-1">{formElement.label}</label>
               {formElement.type === 'select' ? (
-                <select className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
-                  value={formElement.value || ""}
-                  onChange={(e) => handleInputChange(e, index)}>
+                <select
+                  className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
+                  name={formElement.label}
+                  onChange={(e) => handleInputChange(e, index)}
+                  value={inputValues[index] ? inputValues[index][formElement.label] : ''}
+                >
+                  <option value="">Seçiniz</option> {/* Varsayılan seçenek */}
                   {formElement.options.map((option, optionIndex) => (
                     <option key={optionIndex} value={option}>{option}</option>
                   ))}
@@ -39,8 +50,9 @@ export default function FormFillPage() {
                 <input
                   className="w-full py-2 px-4 border border-gray-300 rounded-md shadow-sm focus:outline-none focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   type={formElement.type}
-                  value={formElement.value || ""}
+                  name={formElement.label}
                   onChange={(e) => handleInputChange(e, index)}
+                  value={inputValues[index] ? inputValues[index][formElement.label] : ''}
                 />
               )}
             </div>
@@ -52,6 +64,5 @@ export default function FormFillPage() {
         </form>
       )}
     </div>
-
   );
 }
